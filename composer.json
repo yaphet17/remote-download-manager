@@ -6,9 +6,10 @@
             "RDM\\App\\Libraries\\": "app/Libraries/"
         }
     },
+    "config": { "platform-check": false },
     "require": {
-        "irazasyed/telegram-bot-sdk": "^2.0",
-        "vlucas/phpdotenv": "^5.4",
-        "monolog/monolog": "^2.4"
+        "irazasyed/telegram-bot-sdk": "2.0",
+        "vlucas/phpdotenv": "5.4",
+        "monolog/monolog": "2.4"
     }
 }

@@ -26,27 +26,25 @@ class Database{
             PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION
         );
         //instantiate logger
-        $this->logger=new LogWriter("database");
+//        $this->logger=new LogWriter("database");
         try{
             $this->dbHandler= new PDO($conn,$this->dbUser,$this->dbPass,$options);
 
         }catch(PDOException $e){
             $this->error=$e->getMessage();
-            $this->logger->setEmergencyLogger("can't connect to database.",array("exception"=>$e));
+//            $this->logger->setEmergencyLogger("can't connect to database.",array("exception"=>$e));
             echo $this->error;
         }
-
     }
 
     public function query($sql){
         try{
             $this->statement=$this->dbHandler->prepare($sql);
         }catch(\PDOException $e){
-            $this->logger->setErrorLogger("can't prepare query",
-                array("exception"=>$e));
+//            $this->logger->setErrorLogger("can't prepare query",
+//                array("exception"=>$e));
             die("can't prepare query");
         }
-
 
     }
     public function  bind($parameter,$value,$type=null){
@@ -71,7 +69,7 @@ class Database{
                      {$parameter} value={$value} type={$type}");
             }
         }catch(QueryErrorException $e){
-            $this->logger->setErrorLogger("can't bind value",array("context"=>$e));
+//            $this->logger->setErrorLogger("can't bind value",array("context"=>$e));
             die("can't bind value");
         }
     }
@@ -82,17 +80,15 @@ class Database{
             if(!$result){
                 throw new QueryErrorException("failed to execute query");
             }
-            echo "<p>Succesfully added</p>";
         }catch(\QueryErrorException $e){
-            $this->logger->setErrorLogger("can't execute query",array("exception"=>$e));
+//            $this->logger->setErrorLogger("can't execute query",array("exception"=>$e));
             die("can't execute query");
         }
         catch(\PDOException $e){
-            $this->logger->setErrorLogger("can't execute query",array("exception"=>$e));
+//            $this->logger->setErrorLogger("can't execute query",array("exception"=>$e));
             die("can't execute query");
         }
 
-        return ;
     }
 
     public function resultSet(){
@@ -109,4 +105,3 @@ class Database{
 
 
 }
-$db=new Database();

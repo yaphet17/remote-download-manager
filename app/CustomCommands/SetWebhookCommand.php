@@ -23,9 +23,10 @@ class SetWebhookCommand extends Command
     {
         $username=$arguments["username"];
         $chatId=$arguments["chat_id"];
-        $url=$arguments["url"];
+        $url=$arguments["webhook"];
         $db=new Database();
         $query="SELECT webhook FROM user WHERE user_id=:username";
+        $db->query($query);
         $db->bind(":username",$username);
         $row=$db->single();
         //check if webhook already exist for a user

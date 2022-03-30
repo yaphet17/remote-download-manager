@@ -6,6 +6,7 @@ use \RDM\App\CustomCommands\StartCommand;
 use \RDM\App\CustomCommands\SetWebhookCommand;
 use \RDM\App\CustomCommands\GetWebhookCommand;
 use \RDM\App\CustomCommands\DeleteWebhookCommand;
+use \RDM\App\CustomCommands\DownloadCommand;
 
 //load bot token from .env file
 $dotenv = Dotenv\Dotenv::createImmutable(__DIR__."/..");
@@ -25,6 +26,7 @@ $commands=[
     SetWebhookCommand::class,
     GetWebhookCommand::class,
     DeleteWebhookCommand::class,
+    DownloadCommand::class,
     HelpCommand::class
 ];
 //enable commands
@@ -47,14 +49,15 @@ $firstName=$chat->getFirstName();
 $username=$chat->getUsername();
 //if the message is command:handle command
 if(str_starts_with($text,"/")){
-    //remove  the first '/' character
+    //remove the first '/' character
     $text=substr($text,1);
     //if the command contains parameter parse
-    if(str_contains(" ",$text)){
+    if(str_contains($text," ")){
         $text=explode(" ",$text);
-        $command=FILTER_SANITIZE_STRING($text[0]);
-        $url=FILTER_SANITIZE_URL($text[1]);
-        $paramArray=array("firstname"=>$firstName,"username"=>$username,"chat_id"=>$chatId,"url"=>$url);
+        $command=$text[0];
+        $url=$text[1];
+        echo "<p>".$url."</p>";
+        $paramArray=array("firstname"=>$firstName,"username"=>$username,"chat_id"=>$chatId,"webhook"=>$url);
     }else{
         $command=$text;
         $paramArray=array("firstname"=>$firstName,"username"=>$username);

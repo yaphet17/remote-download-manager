@@ -26,10 +26,10 @@ class GetWebhookCommand extends Command
         $db->query($query);
         $db->bind(":username",$username);
         $row=$db->single();
-        if($db->rowCount()>0&&empty($row["webhook"])){
-            $msg="Webhook wasn't set.Enter /setwebhook [url] to add new webhook";
+        if($db->rowCount()>0&&!empty($row["webhook"])){
+            $msg="Current webhook: ".$row["webhook"];
         }else{
-            $msg="Current webhook: "+$row["webhook"];
+            $msg="Webhook wasn't set.Enter /setwebhook [url] to add new webhook";
         }
         $this->replyMsg($msg);
     }
